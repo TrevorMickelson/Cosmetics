@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="HeadDatabase">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../1.16 server run/plugins/HeadDatabase.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

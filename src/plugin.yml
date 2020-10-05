@@ -1,0 +1,10 @@
+name: Cosmetics
+author: CodePunisher
+version: 1.0
+main: main.CosmMain
+api-version: 1.16
+
+commands:
+  cosmetics:
+    aliases: [cosmetic, cosm]
+    description: cosmetics command
