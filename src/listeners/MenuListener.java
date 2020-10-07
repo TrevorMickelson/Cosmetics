@@ -1,17 +1,15 @@
 package listeners;
 
-import cosmetics.Pets;
-import cosmetics.Suits;
+import cosmetics.*;
 import main.CosmMain;
 import models.CosmUser;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import cosmetics.BackParticles;
-import cosmetics.TrailParticles;
 
 import java.util.Objects;
 
@@ -89,6 +87,7 @@ public class MenuListener
                                 if (cosmUser.isWearingSuit())
                                     cosmUser.removeSuit();
 
+                                cosmUser.setWearingSuit(false);
                                 player.sendMessage(ChatColor.RED + "All cosmetics have been disabled!");
                             } else {
                                 player.sendMessage(ChatColor.RED + "You don't have any cosmetics enabled!");
@@ -219,7 +218,11 @@ public class MenuListener
                             return;
 
                         // If the timer is already active (simply changing particle to spawn)
+                        cosmUser.getEntity().remove();
+                        LivingEntity newPet = (LivingEntity) player.getWorld().spawnEntity(player.getLocation(), pet.getEntityType());
+                        cosmUser.setEntity(newPet);
                         cosmUser.setPet(pet);
+                        cosmUser.spawnPet(player);
                     }
                     else
                     {
@@ -242,6 +245,7 @@ public class MenuListener
                         if (isActive)
                         {
                             cosmUser.removeSuit();
+                            cosmUser.setWearingSuit(false);
                             player.sendMessage(ChatColor.RED + "Suit removed!");
                             player.openInventory(plugin.getGuiHelpers().suitInventory(cosmUser));
                         }
@@ -253,7 +257,7 @@ public class MenuListener
                         return;
                     }
 
-                    // Pet object
+                    // Suit object
                     Suits suit = Objects.requireNonNull(Suits.valueOf(getEnumName(item)));
 
                     // If they try to apply something they already have

@@ -1,6 +1,8 @@
 name: Cosmetics
 author: CodePunisher
 version: 1.0
+depend:
+  - HeadDatabase
 main: main.CosmMain
 api-version: 1.16
 

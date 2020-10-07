@@ -1,18 +1,17 @@
 package models;
 
-import cosmetics.Pets;
-import cosmetics.Suits;
+import cosmetics.*;
+import general.HelpersAPI;
 import main.CosmMain;
+import net.minecraft.server.v1_16_R2.EntityInsentient;
+import net.minecraft.server.v1_16_R2.PathEntity;
 import org.bukkit.*;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.craftbukkit.v1_16_R2.entity.CraftEntity;
+import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-import cosmetics.BackParticles;
-import cosmetics.TrailParticles;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -40,6 +39,9 @@ public class CosmUser
     // Pet instance variables
     private LivingEntity livingEntity;                                                  // The literal entity of pet
     private Pets pet;                                                                   // Pet for user
+    private String name;                                                                // Pet name
+    private boolean baby;                                                               // If pet is baby
+    private boolean charged;                                                             // If pet is charged (creeper)
     private boolean isActivePet;                                                        // If pet is active
 
     // Suit instance variables
@@ -54,6 +56,7 @@ public class CosmUser
         this.activeBackParticle = false;
         this.isActivePet = false;
         this.wearingSuit = false;
+        this.name = ChatColor.DARK_AQUA + HelpersAPI.getUUIDName(uuid) + "s pet";
     }
 
     // UUID of cosmetic user
@@ -63,11 +66,13 @@ public class CosmUser
     private boolean isMoving() { return this.moving; }
     public void setMoving(boolean moving) { this.moving = moving; }
 
-    // Trail particle shit
+    /** ---------- TRAIL PARTICLES SECTION ---------- */
     public TrailParticles getTrailParticle() { return this.trailParticle; }
     public void setTrailParticle(TrailParticles trailParticle) { this.trailParticle = trailParticle; }
+
     public boolean isActiveTrailParticle() { return this.activeTrailParticle; }
     public void setActiveTrailParticle(boolean activeTrailParticle) { this.activeTrailParticle = activeTrailParticle; }
+
     public void trailParticleTimer() {
         Player player = Bukkit.getPlayer(getUuid());
 
@@ -88,11 +93,13 @@ public class CosmUser
         }
     }
 
-    // Back particle shit
+    /** ---------- BACK PARTICLES SECTION ---------- */
     public BackParticles getBackParticle() { return this.backParticle; }
     public void setBackParticle(BackParticles backParticle) { this.backParticle = backParticle; }
+
     public boolean isActiveBackParticle() { return this.activeBackParticle; }
     public void setActiveBackParticle(boolean activeBackParticle) { this.activeBackParticle = activeBackParticle; }
+
     public void backParticleTimer() {
         Player player = Bukkit.getPlayer(getUuid());
 
@@ -180,8 +187,6 @@ public class CosmUser
                             y -= particleSpace;
                             x = tempX;
                         }
-                    } else {
-                        setMoving(false);
                     }
                 }
 
@@ -189,23 +194,45 @@ public class CosmUser
         }
     }
 
-    // Pet shit
-    public Entity getEntity() { return this.livingEntity; }
+    /** ---------- PETS SECTION ---------- */
+    public LivingEntity getEntity() { return this.livingEntity; }
     public void setEntity(LivingEntity livingEntity) { this.livingEntity = livingEntity; }
+
     public Pets getPet() { return this.pet; }
     public void setPet(Pets pet) { this.pet = pet; }
+
+    public String getName() { return this.name; }
+    public void setName(String name) { this.name = name;}
+
+    public boolean isBaby() { return this.baby; }
+    public void setBaby(boolean baby) { this.baby = baby; }
+
+    public boolean isCharged() { return this.charged; }
+    public void setCharged(boolean charged) { this.charged = charged; }
+
     public boolean isActivePet() { return this.isActivePet; }
     public void setActivePet(boolean isActivePet) { this.isActivePet = isActivePet; }
+
+    public void spawnPet(Player player) {
+        // Creating/spawning entity before starting timer
+        LivingEntity pet = (LivingEntity) player.getWorld().spawnEntity(player.getLocation(), getPet().getEntityType());
+        setEntity(pet);
+        LivingEntity livingEntity = getEntity();
+        livingEntity.setInvulnerable(true);
+        livingEntity.setCanPickupItems(false);
+        livingEntity.setCustomNameVisible(true);
+        livingEntity.setCustomName(ChatColor.DARK_AQUA + player.getName() + "s pet");
+    }
+
     public void petTimer() {
         Player player = Bukkit.getPlayer(getUuid());
 
         if (player != null)
         {
             // Creating/spawning entity before starting timer
-            //Entity entity = Objects.requireNonNull(player.getLocation().getWorld()).spawn(player.getLocation().add(2.0D, 0.0D, 0.0D), getPet().getEntityType());
-            //pig.setInvulnerable(true);
-            //setEntity((LivingEntity) entity);
-
+            LivingEntity pet = (LivingEntity) player.getWorld().spawnEntity(player.getLocation(), getPet().getEntityType());
+            setEntity(pet);
+            spawnPet(player);
             new BukkitRunnable() {
                 @Override
                 public void run()
@@ -215,18 +242,34 @@ public class CosmUser
                         cancel();
                         getEntity().remove();
                         setActivePet(false);
+                        return;
                     }
 
                     if (isMoving()) {
-                        //pig.setTarget(player);
+                        Location loc = player.getLocation().add(1.5, 0, -1.5);
+                        Object petObject = ((CraftEntity) getEntity()).getHandle();
+                        PathEntity path = ((EntityInsentient) petObject).getNavigation().a(loc.getX(), loc.getY(), loc.getZ(), 0);
+
+                        if(path != null)
+                            ((EntityInsentient)petObject).getNavigation().a(path, getPet().getSpeed());
+
+                        int distance = (int) player.getLocation().distance(getEntity().getLocation());
+                        if(distance > 10  && player.isOnGround())
+                            getEntity().teleport(loc);
+                    }
+
+                    // Spawning player particles on pet (if they have any on)
+                    if (isActiveTrailParticle()) {
+                        Location loc = getEntity().getLocation();
+                        getEntity().getWorld().spawnParticle(getTrailParticle().getParticle(), loc, getTrailParticle().getAmount(), getTrailParticle().getRadiusX(), getTrailParticle().getRadiusY(), getTrailParticle().getRadiusZ(), 0);
                     }
                 }
 
-            }.runTaskTimerAsynchronously(plugin, 0L, 3L);
+            }.runTaskTimer(plugin, 0L, 1L);
         }
     }
 
-    // Suit shit
+    /** ---------- SUIT SECTION ---------- */
     public Suits getSuit() { return this.suit; }
     public void setSuit(Suits suit) { this.suit = suit; }
     public boolean isWearingSuit() { return this.wearingSuit; }
@@ -253,12 +296,8 @@ public class CosmUser
 
         if (player != null)
         {
-            if (isWearingSuit())
-            {
-                setWearingSuit(false);
-                PlayerInventory inv = player.getInventory();
-                inv.setArmorContents(new ItemStack[inv.getArmorContents().length]);
-            }
+            PlayerInventory inv = player.getInventory();
+            inv.setArmorContents(new ItemStack[inv.getArmorContents().length]);
         }
     }
 

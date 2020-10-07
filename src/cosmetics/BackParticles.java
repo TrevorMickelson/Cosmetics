@@ -16,9 +16,11 @@ public enum BackParticles
     END_MASTER_WINGS("&5End Master Wings", Material.ENDER_CHEST, ParticleBluePrints.AbyseWing, 0, 2.7D, 0,  1.0F, 0.2, new Particle[] { Particle.REDSTONE, Particle.REDSTONE }, Color.fromRGB(5, 5, 5), Color.fromRGB(125, 1, 125)),
     SPACE_WINGS("&3Space Wings", Material.DIAMOND, ParticleBluePrints.SpaceWings, 0, 1.8D, 0,  1.0F, 0.2, new Particle[] { Particle.CRIT_MAGIC, Particle.REDSTONE }, null, Color.fromRGB(1, 189, 60)),
     FLAME_WINGS("&cFlame Wings", Material.BLAZE_POWDER, ParticleBluePrints.FlameWings, 1.2D, 2.3D, 0,  1.0F, 0.2, new Particle[] { Particle.FLAME }, null, null),
-    ICE_WINGS("&bIce Wings", Material.ICE, ParticleBluePrints.iceWings, 1.0D, 2.1D, 0, 1.0F,  0.2, new Particle[] { Particle.REDSTONE, Particle.REDSTONE }, Color.fromRGB(75, 250, 255), Color.fromRGB(255, 255, 255)),
+    ICE_WINGS("&fIce Wings", Material.ICE, ParticleBluePrints.iceWings, 1.0D, 2.1D, 0, 1.0F,  0.2, new Particle[] { Particle.REDSTONE, Particle.REDSTONE }, Color.fromRGB(75, 250, 255), Color.fromRGB(255, 255, 255)),
+    BLUE_FLAME_WINGS("&bBlue Flame Wings", Material.SOUL_LANTERN, ParticleBluePrints.FlameWings, 1.2D, 2.3D, 0,  1.0F, 0.2, new Particle[] { Particle.SOUL_FIRE_FLAME }, null, null),
     LIGHT_WINGS("&fLight Wings", Material.GOLD_INGOT, ParticleBluePrints.lightWings, 0.5D, 2.5D, 0,  1.0F, 0.1, new Particle[] { Particle.SMOKE_NORMAL, Particle.REDSTONE, Particle.REDSTONE }, null, Color.fromRGB(192, 192, 192), Color.fromRGB(255, 255, 255)),
-    DARKNESS_WINGS("&8Darkness Wings", Material.BLACK_DYE, ParticleBluePrints.AbyseWing, 0, 1.9D, 0,  1.0F, 0.1, new Particle[] { Particle.REDSTONE, Particle.REDSTONE }, Color.fromRGB(5, 5, 5), Color.fromRGB(20, 20, 20)), //;jklafsdsdklfj
+    DARKNESS_WINGS("&8Darkness Wings", Material.BLACK_DYE, ParticleBluePrints.AbyseWing, 0, 1.9D, 0,  1.0F, 0.1, new Particle[] { Particle.REDSTONE, Particle.REDSTONE }, Color.fromRGB(5, 5, 5), Color.fromRGB(20, 20, 20)),
+    PINK_BAT("&dPink Bat", Material.PINK_DYE, ParticleBluePrints.BatWings, 0, 1.6D, 0,  1.0F, 0.1, new Particle[] { Particle.SMOKE_NORMAL, Particle.REDSTONE }, null, Color.fromRGB(255, 0, 255)),
 
     //---(WEAPONS)---
     GOLDEN_GREAT_SWORD("&6Golden Great Sword", Material.GOLDEN_SWORD, ParticleBluePrints.BasicGreatSword, 1.2D, 2.2D, 0,  1.0F, 0.2D, new Particle[] { Particle.REDSTONE, Particle.REDSTONE, Particle.REDSTONE }, Color.fromRGB(51, 51, 51), Color.fromRGB(5, 5, 5), Color.fromRGB(232, 159, 1)),

@@ -1,7 +1,6 @@
 package util;
 
-import cosmetics.Pets;
-import cosmetics.Suits;
+import cosmetics.*;
 import me.arcaniax.hdb.api.HeadDatabaseAPI;
 import models.CosmUser;
 import org.bukkit.Bukkit;
@@ -12,8 +11,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import cosmetics.BackParticles;
-import cosmetics.TrailParticles;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -50,7 +47,7 @@ public class GUIHelpers
         for (TrailParticles trailParticle : TrailParticles.values())
         {
             boolean applied = cosmUser.isActiveTrailParticle() && cosmUser.getTrailParticle() == trailParticle;
-            ItemStack current = customItem(Material.ORANGE_STAINED_GLASS_PANE, trailParticle.getName(), "&7Statis: &6&lAPPLIED", true);
+            ItemStack current = customItem(Material.ORANGE_STAINED_GLASS_PANE, trailParticle.getName(), "&7Status: &6&lAPPLIED", true);
             ItemStack permission = customItem(trailParticle.getGuiItem(), trailParticle.getName(), "&7Click to equip", false);
             ItemStack noPermission = customItem(Material.RED_STAINED_GLASS_PANE, trailParticle.getName(), "&7Statis: &c&lLOCKED", false);
 
@@ -83,7 +80,7 @@ public class GUIHelpers
         for (BackParticles backParticle : BackParticles.values())
         {
             boolean applied = cosmUser.isActiveBackParticle() && cosmUser.getBackParticle() == backParticle;
-            ItemStack current = customItem(Material.ORANGE_STAINED_GLASS_PANE, backParticle.getName(), "&7Statis: &6&lAPPLIED", true);
+            ItemStack current = customItem(Material.ORANGE_STAINED_GLASS_PANE, backParticle.getName(), "&7Status: &6&lAPPLIED", true);
             ItemStack permission = customItem(backParticle.getGuiItem(), backParticle.getName(), "&7Click to equip", false);
             ItemStack noPermission = customItem(Material.RED_STAINED_GLASS_PANE, backParticle.getName(), "&7Statis: &c&lLOCKED", false);
 
@@ -115,8 +112,8 @@ public class GUIHelpers
 
         for (Pets pet : Pets.values())
         {
-            boolean applied = cosmUser.isActiveBackParticle() && cosmUser.getPet() == pet;
-            ItemStack current = customItem(Material.ORANGE_STAINED_GLASS_PANE, pet.getName(), "&7Statis: &6&lAPPLIED", true);
+            boolean applied = cosmUser.isActivePet() && cosmUser.getPet() == pet;
+            ItemStack current = customItem(Material.ORANGE_STAINED_GLASS_PANE, pet.getName(), "&7Status: &6&lAPPLIED", true);
             ItemStack permission = customItem(pet.getGuiItem(), pet.getName(), "&7Click to equip", false);
             ItemStack noPermission = customItem(Material.RED_STAINED_GLASS_PANE, pet.getName(), "&7Statis: &c&lLOCKED", false);
 
@@ -149,7 +146,7 @@ public class GUIHelpers
         for (Suits suit : Suits.values())
         {
             boolean applied = cosmUser.isWearingSuit() && cosmUser.getSuit() == suit;
-            ItemStack current = customItem(Material.ORANGE_STAINED_GLASS_PANE, suit.getName(), "&7Statis: &6&lAPPLIED", true);
+            ItemStack current = customItem(Material.ORANGE_STAINED_GLASS_PANE, suit.getName(), "&7Status: &6&lAPPLIED", true);
             ItemStack permission = baseSkullItem(suit.getHeadId(), suit.getName(), false);
             ItemStack noPermission = customItem(Material.RED_STAINED_GLASS_PANE, suit.getName(), "&7Statis: &c&lLOCKED", false);
 

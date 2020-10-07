@@ -10,7 +10,11 @@ public enum TrailParticles
     BLAST_OFF("&fBlast off", Material.COBWEB, Particle.SPIT, 20,  0, 0, 0),
     GREEN_SPARKLE("&aGreen Sparkle", Material.EMERALD, Particle.VILLAGER_HAPPY, 2, 0.2,0.1,0.2),
     FLAME("&6Flame", Material.BLAZE_POWDER, Particle.FLAME, 2, 0.2, 0.1, 0.2),
-    HEART("&cHeart", Material.POPPY, Particle.HEART, 1,  0, 0, 0);
+    HEART("&cHeart", Material.POPPY, Particle.HEART, 1,  0, 0, 0),
+    WHITE_SPARKLE("&fWhite Sparkle", Material.IRON_INGOT, Particle.FIREWORKS_SPARK, 3,  0.2, 0.1, 0.2),
+    BLUE_FLAME("&bBlue Flame", Material.SOUL_TORCH, Particle.SOUL_FIRE_FLAME, 2,  0.2, 0.1, 0.2),
+    DRAGON_BREATH("&5Dragon Breath", Material.ENDER_CHEST, Particle.DRAGON_BREATH, 4,  0.2, 0.1, 0.2),
+    ENCHANTMENT("&cEnchantment", Material.ENCHANTING_TABLE, Particle.ENCHANTMENT_TABLE, 20,  0.2, 0.1, 0.2);
 
     private String name;
     private Material guiItem;
