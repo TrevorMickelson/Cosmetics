@@ -12,7 +12,7 @@ import java.util.UUID;
 public class CosmManager
 {
     /** Stores all cosmetic users in hash map */
-    private HashMap<UUID, CosmUser> cosmUsers = new HashMap<>();
+    public HashMap<UUID, CosmUser> cosmUsers = new HashMap<>();
 
     /**
      * Getting the cosmetic object for player

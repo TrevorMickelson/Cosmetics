@@ -1,7 +1,6 @@
 package models;
 
 import cosmetics.*;
-import general.HelpersAPI;
 import main.CosmMain;
 import net.minecraft.server.v1_16_R2.EntityInsentient;
 import net.minecraft.server.v1_16_R2.PathEntity;
@@ -39,9 +38,9 @@ public class CosmUser
     // Pet instance variables
     private LivingEntity livingEntity;                                                  // The literal entity of pet
     private Pets pet;                                                                   // Pet for user
-    private String name;                                                                // Pet name
     private boolean baby;                                                               // If pet is baby
-    private boolean charged;                                                             // If pet is charged (creeper)
+    private boolean charged;                                                            // If pet is charged (creeper)
+    private boolean glow;                                                               // Pet glow setting
     private boolean isActivePet;                                                        // If pet is active
 
     // Suit instance variables
@@ -56,7 +55,6 @@ public class CosmUser
         this.activeBackParticle = false;
         this.isActivePet = false;
         this.wearingSuit = false;
-        this.name = ChatColor.DARK_AQUA + HelpersAPI.getUUIDName(uuid) + "s pet";
     }
 
     // UUID of cosmetic user
@@ -201,14 +199,14 @@ public class CosmUser
     public Pets getPet() { return this.pet; }
     public void setPet(Pets pet) { this.pet = pet; }
 
-    public String getName() { return this.name; }
-    public void setName(String name) { this.name = name;}
-
     public boolean isBaby() { return this.baby; }
     public void setBaby(boolean baby) { this.baby = baby; }
 
     public boolean isCharged() { return this.charged; }
     public void setCharged(boolean charged) { this.charged = charged; }
+
+    public boolean isGlow() { return this.glow; }
+    public void setGlow(boolean glow) { this.glow = glow; }
 
     public boolean isActivePet() { return this.isActivePet; }
     public void setActivePet(boolean isActivePet) { this.isActivePet = isActivePet; }
@@ -221,7 +219,22 @@ public class CosmUser
         livingEntity.setInvulnerable(true);
         livingEntity.setCanPickupItems(false);
         livingEntity.setCustomNameVisible(true);
-        livingEntity.setCustomName(ChatColor.DARK_AQUA + player.getName() + "s pet");
+        String name = getPet().getName();
+        name = name.substring(name.indexOf("§") + 3);
+        livingEntity.setCustomName(getPet().getChatColor() + player.getName() + "'s " + name);
+        livingEntity.setGlowing(isGlow());
+
+        if (livingEntity instanceof Animals) {
+            Animals animals = (Animals) livingEntity;
+
+            if (isBaby())
+                animals.setBaby();
+        }
+
+        if (livingEntity instanceof Creeper) {
+            Creeper creeper = (Creeper) livingEntity;
+            creeper.setPowered(isCharged());
+        }
     }
 
     public void petTimer() {
@@ -230,22 +243,19 @@ public class CosmUser
         if (player != null)
         {
             // Creating/spawning entity before starting timer
-            LivingEntity pet = (LivingEntity) player.getWorld().spawnEntity(player.getLocation(), getPet().getEntityType());
-            setEntity(pet);
             spawnPet(player);
             new BukkitRunnable() {
                 @Override
                 public void run()
                 {
-                    if (!player.isOnline() || player.isDead() || !isActivePet()
-                        || getEntity() == null || getEntity().isDead() || !getEntity().isValid()) {
+                    if (!isActivePet() || getEntity() == null || getEntity().isDead() ||
+                        !getEntity().isValid() || !player.isOnline()) {
                         cancel();
                         getEntity().remove();
-                        setActivePet(false);
                         return;
                     }
 
-                    if (isMoving()) {
+                    if (isMoving() && !player.isDead()) {
                         Location loc = player.getLocation().add(1.5, 0, -1.5);
                         Object petObject = ((CraftEntity) getEntity()).getHandle();
                         PathEntity path = ((EntityInsentient) petObject).getNavigation().a(loc.getX(), loc.getY(), loc.getZ(), 0);
@@ -253,9 +263,13 @@ public class CosmUser
                         if(path != null)
                             ((EntityInsentient)petObject).getNavigation().a(path, getPet().getSpeed());
 
-                        int distance = (int) player.getLocation().distance(getEntity().getLocation());
-                        if(distance > 10  && player.isOnGround())
+                        if (!player.getWorld().equals(getEntity().getWorld())) {
                             getEntity().teleport(loc);
+                        } else {
+                            int distance = (int) player.getLocation().distance(getEntity().getLocation());
+                            if(distance > 10  && player.isOnGround() || !player.getWorld().equals(getEntity().getWorld()))
+                                getEntity().teleport(loc);
+                        }
                     }
 
                     // Spawning player particles on pet (if they have any on)

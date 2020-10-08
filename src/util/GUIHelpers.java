@@ -16,9 +16,8 @@ import java.util.Collections;
 import java.util.Objects;
 
 /**
- * This class contains
- * static inventories for the
- * beautiful cosmetic menus
+ * This class contains inventories
+ * for the beautiful cosmetic menus
  */
 public class GUIHelpers
 {
@@ -131,7 +130,22 @@ public class GUIHelpers
         }
 
         inventory.setItem(31, customItem(Material.BARRIER, "&c&lRemove", "&7Click to remove pet", false));
+        inventory.setItem(34, customItem(Material.BOOK, "&6&lPet Editor", "&7Click for pet settings", false));
         inventory.setItem(35, customItem(Material.OAK_FENCE_GATE, "&f&lBack", "&7Click to go back", false));
+        return inventory;
+    }
+
+
+    /**
+     * Pet editor menu
+     * @return inventory
+     */
+    public Inventory petEditorGUI(CosmUser cosmUser) {
+        Inventory inventory = Bukkit.createInventory(null, 27, "Cosmetics: Pet Editor");
+        inventory.setItem(11, customItem(Material.APPLE, "&c&lPet Baby", "&7Doesn't apply to all pets", cosmUser.isBaby()));
+        inventory.setItem(13, customItem(Material.CREEPER_SPAWN_EGG, "&a&lCharged", "&7Only applies to creepers", cosmUser.isCharged()));
+        inventory.setItem(15, customItem(Material.BEACON, "&b&lGlow", "&7Click to make pet glow", cosmUser.isGlow()));
+        inventory.setItem(26, customItem(Material.OAK_FENCE_GATE, "&f&lBack", "&7Click to go back", false));
         return inventory;
     }
 

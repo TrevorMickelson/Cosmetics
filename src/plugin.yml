@@ -3,6 +3,7 @@ author: CodePunisher
 version: 1.0
 depend:
   - HeadDatabase
+  - McAimCore
 main: main.CosmMain
 api-version: 1.16
 

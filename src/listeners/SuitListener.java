@@ -2,9 +2,6 @@ package listeners;
 
 import events.ArmorRemoveEvent;
 import main.CosmMain;
-import models.Armor;
-import models.ArmorTier;
-import models.ArmorType;
 import models.CosmUser;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerItemDamageEvent;

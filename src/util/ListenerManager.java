@@ -13,18 +13,27 @@ import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+/**
+ * Listener manager class
+ *
+ * The purpose of this class is to implement
+ * the listener interface only once, and register
+ * all events through this one class
+ *
+ * This is also very useful for having multiple
+ * event types within 1 plugin, and only registering
+ * them via one actual event
+ */
 public class ListenerManager implements Listener
 {
     private final JoinLeave joinLeave = new JoinLeave();
     private final MenuListener menuListener = new MenuListener();
+    private final SuitListener suitListener = new SuitListener();
     private final PlayerMove playerMove = new PlayerMove();
     private final PetListener petListener = new PetListener();
-    private final SuitListener suitListener = new SuitListener();
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
-        this.joinLeave.handleJoinEvent(event);
-    }
+    public void onJoin(PlayerJoinEvent event) { this.joinLeave.handleJoinEvent(event); }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) { this.joinLeave.handleQuitEvent(event);}
@@ -45,5 +54,5 @@ public class ListenerManager implements Listener
     public void onStopMove(PlayerStopMovingEvent event) { this.playerMove.handleStopEvent(event); }
 
     @EventHandler
-    public void test(EntityTargetLivingEntityEvent event) { event.setCancelled(true); }
+    public void onPetHit(EntityTargetLivingEntityEvent event) { this.petListener.handleTargetEvent(event); }
 }
