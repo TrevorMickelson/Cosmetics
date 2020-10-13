@@ -1,6 +1,6 @@
-package util;
+package com.codepunisher.cosmetics.util;
 
-import models.CosmUser;
+import com.codepunisher.cosmetics.CosmUser;
 
 import java.util.HashMap;
 import java.util.UUID;

@@ -1,15 +1,17 @@
-package listeners;
+package com.codepunisher.cosmetics.listeners;
 
-import cosmetics.*;
-import main.CosmMain;
-import models.CosmUser;
+import com.codepunisher.cosmetics.CosmMain;
+import com.codepunisher.cosmetics.cosmetics.BackParticles;
+import com.codepunisher.cosmetics.cosmetics.Pets;
+import com.codepunisher.cosmetics.cosmetics.Suits;
+import com.codepunisher.cosmetics.cosmetics.TrailParticles;
+import com.codepunisher.cosmetics.CosmUser;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;

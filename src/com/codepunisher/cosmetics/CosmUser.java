@@ -1,7 +1,9 @@
-package models;
+package com.codepunisher.cosmetics;
 
-import cosmetics.*;
-import main.CosmMain;
+import com.codepunisher.cosmetics.cosmetics.BackParticles;
+import com.codepunisher.cosmetics.cosmetics.Pets;
+import com.codepunisher.cosmetics.cosmetics.Suits;
+import com.codepunisher.cosmetics.cosmetics.TrailParticles;
 import net.minecraft.server.v1_16_R2.EntityInsentient;
 import net.minecraft.server.v1_16_R2.PathEntity;
 import org.bukkit.*;

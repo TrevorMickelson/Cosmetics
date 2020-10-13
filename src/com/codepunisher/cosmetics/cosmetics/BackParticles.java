@@ -1,5 +1,6 @@
-package cosmetics;
+package com.codepunisher.cosmetics.cosmetics;
 
+import com.codepunisher.cosmetics.cosmetics.ParticleBluePrints;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.Particle;

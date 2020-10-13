@@ -1,15 +1,14 @@
-package main;
+package com.codepunisher.cosmetics;
 
-import configuration.ConfigAPI;
-import configuration.DataFile;
-import models.CosmUser;
+import com.codepunisher.mcaimcore.configuration.ConfigAPI;
+import com.codepunisher.mcaimcore.configuration.DataFile;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import util.CosmDataManager;
-import util.CosmManager;
-import util.GUIHelpers;
-import util.ListenerManager;
+import com.codepunisher.cosmetics.util.CosmDataManager;
+import com.codepunisher.cosmetics.util.CosmManager;
+import com.codepunisher.cosmetics.util.GUIHelpers;
+import com.codepunisher.cosmetics.util.ListenerManager;
 
 import java.util.Objects;
 
@@ -67,8 +66,8 @@ public class CosmMain extends JavaPlugin
                 cosmUser.getEntity().remove();
 
             if (cosmUser.isActiveTrailParticle() || cosmUser.isActiveBackParticle() ||
-                cosmUser.isActivePet() || cosmUser.isWearingSuit() || cosmUser.isBaby() ||
-                cosmUser.isCharged() || cosmUser.isGlow())
+                    cosmUser.isActivePet() || cosmUser.isWearingSuit() || cosmUser.isBaby() ||
+                    cosmUser.isCharged() || cosmUser.isGlow())
             {
                 dataFile.getData().set(cosmUser.getUuid().toString(), getCosmDataManager().cosmeticDataToString(cosmUser));
             }

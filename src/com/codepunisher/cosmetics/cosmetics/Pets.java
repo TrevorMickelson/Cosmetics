@@ -1,4 +1,4 @@
-package cosmetics;
+package com.codepunisher.cosmetics.cosmetics;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

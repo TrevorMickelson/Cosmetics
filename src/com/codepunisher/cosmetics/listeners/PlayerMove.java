@@ -1,8 +1,8 @@
-package listeners;
+package com.codepunisher.cosmetics.listeners;
 
-import events.PlayerStartMovingEvent;
-import events.PlayerStopMovingEvent;
-import main.CosmMain;
+import com.codepunisher.cosmetics.CosmMain;
+import com.codepunisher.mcaimcore.events.PlayerStartMovingEvent;
+import com.codepunisher.mcaimcore.events.PlayerStopMovingEvent;
 import org.bukkit.entity.Player;
 
 public class PlayerMove

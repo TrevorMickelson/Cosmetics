@@ -1,8 +1,8 @@
-package listeners;
+package com.codepunisher.cosmetics.listeners;
 
-import configuration.ConfigAPI;
-import main.CosmMain;
-import models.CosmUser;
+import com.codepunisher.cosmetics.CosmMain;
+import com.codepunisher.cosmetics.CosmUser;
+import com.codepunisher.mcaimcore.configuration.ConfigAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;

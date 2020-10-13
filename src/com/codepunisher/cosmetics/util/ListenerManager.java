@@ -1,10 +1,10 @@
-package util;
+package com.codepunisher.cosmetics.util;
 
 
-import events.ArmorRemoveEvent;
-import events.PlayerStartMovingEvent;
-import events.PlayerStopMovingEvent;
-import listeners.*;
+import com.codepunisher.mcaimcore.events.ArmorRemoveEvent;
+import com.codepunisher.mcaimcore.events.PlayerStartMovingEvent;
+import com.codepunisher.mcaimcore.events.PlayerStopMovingEvent;
+import com.codepunisher.cosmetics.listeners.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;

@@ -1,4 +1,4 @@
-package cosmetics;
+package com.codepunisher.cosmetics.cosmetics;
 
 public class ParticleBluePrints
 {

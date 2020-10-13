@@ -1,11 +1,11 @@
-package util;
+package com.codepunisher.cosmetics.util;
 
-import configuration.DataFile;
-import cosmetics.BackParticles;
-import cosmetics.Pets;
-import cosmetics.Suits;
-import cosmetics.TrailParticles;
-import models.CosmUser;
+import com.codepunisher.mcaimcore.configuration.DataFile;
+import com.codepunisher.cosmetics.cosmetics.BackParticles;
+import com.codepunisher.cosmetics.cosmetics.Pets;
+import com.codepunisher.cosmetics.cosmetics.Suits;
+import com.codepunisher.cosmetics.cosmetics.TrailParticles;
+import com.codepunisher.cosmetics.CosmUser;
 
 import java.util.Objects;
 import java.util.UUID;

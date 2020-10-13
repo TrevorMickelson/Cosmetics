@@ -1,4 +1,4 @@
-package main;
+package com.codepunisher.cosmetics;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

@@ -1,8 +1,8 @@
-package listeners;
+package com.codepunisher.cosmetics.listeners;
 
-import events.ArmorRemoveEvent;
-import main.CosmMain;
-import models.CosmUser;
+import com.codepunisher.cosmetics.CosmMain;
+import com.codepunisher.mcaimcore.events.ArmorRemoveEvent;
+import com.codepunisher.cosmetics.CosmUser;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;

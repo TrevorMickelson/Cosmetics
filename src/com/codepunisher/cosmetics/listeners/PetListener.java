@@ -1,4 +1,4 @@
-package listeners;
+package com.codepunisher.cosmetics.listeners;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;

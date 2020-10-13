@@ -1,8 +1,11 @@
-package util;
+package com.codepunisher.cosmetics.util;
 
-import cosmetics.*;
+import com.codepunisher.cosmetics.cosmetics.BackParticles;
+import com.codepunisher.cosmetics.cosmetics.Pets;
+import com.codepunisher.cosmetics.cosmetics.Suits;
+import com.codepunisher.cosmetics.cosmetics.TrailParticles;
 import me.arcaniax.hdb.api.HeadDatabaseAPI;
-import models.CosmUser;
+import com.codepunisher.cosmetics.CosmUser;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

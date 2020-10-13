@@ -1,4 +1,4 @@
-package cosmetics;
+package com.codepunisher.cosmetics.cosmetics;
 
 import me.arcaniax.hdb.api.HeadDatabaseAPI;
 import net.minecraft.server.v1_16_R2.NBTTagCompound;
