@@ -2,9 +2,7 @@ package com.codepunisher.cosmetics.cosmetics;
 
 import org.bukkit.*;
 
-public enum TrailParticles
-{
-    // Random Trails
+public enum TrailParticle {
     SUSPENDED("&5Suspended", Material.ENDER_PEARL, Particle.TOWN_AURA, 20, 0.2, 0.1, 0.2),
     SMOKEY("&7Smokey", Material.SMOKER, Particle.SMOKE_NORMAL, 12, 0.1, 0, 0.1),
     BLAST_OFF("&fBlast off", Material.COBWEB, Particle.SPIT, 20,  0, 0, 0),
@@ -16,15 +14,15 @@ public enum TrailParticles
     DRAGON_BREATH("&5Dragon Breath", Material.ENDER_CHEST, Particle.DRAGON_BREATH, 4,  0.2, 0.1, 0.2),
     ENCHANTMENT("&cEnchantment", Material.ENCHANTING_TABLE, Particle.ENCHANTMENT_TABLE, 20,  0.2, 0.1, 0.2);
 
-    private String name;
-    private Material guiItem;
-    private double radiusX;
-    private double radiusY;
-    private double radiusZ;
-    private int amount;
-    private Particle particle;
+    private final String name;
+    private final Material guiItem;
+    private final double radiusX;
+    private final double radiusY;
+    private final double radiusZ;
+    private final int amount;
+    private final Particle particle;
 
-    TrailParticles(String name, Material guiItem, Particle particle, int amount, double radiusX, double radiusY, double radiusZ) {
+    TrailParticle(String name, Material guiItem, Particle particle, int amount, double radiusX, double radiusY, double radiusZ) {
         this.name = name;
         this.guiItem = guiItem;
         this.particle = particle;

@@ -7,8 +7,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="spigot-1.16.3" level="project" />
-    <orderEntry type="library" name="HeadDatabase" level="project" />
+    <orderEntry type="library" name="spigot-1.16.5" level="project" />
     <orderEntry type="library" name="McaimCore" level="project" />
+    <orderEntry type="library" name="HeadDatabase-4.13.4" level="project" />
   </component>
 </module>

@@ -1,35 +1,22 @@
 package com.codepunisher.cosmetics.util;
 
-import com.codepunisher.cosmetics.CosmUser;
+import com.codepunisher.cosmetics.user.CosmUser;
 
 import java.util.HashMap;
 import java.util.UUID;
 
 /**
- * This class handles basic data
- * storage for cosmetic users
+ * Handles the cosmetic data storage
  */
-public class CosmManager
-{
-    /** Stores all cosmetic users in hash map */
-    public HashMap<UUID, CosmUser> cosmUsers = new HashMap<>();
+public class CosmManager {
+    private final HashMap<UUID, CosmUser> cosmUsers = new HashMap<>();
 
-    /**
-     * Getting the cosmetic object for player
-     * @param uuid players uuid
-     * @return cosmetic user
-     */
-    public CosmUser getCosmUser(UUID uuid) { return this.cosmUsers.get(uuid); }
+    public CosmUser getCosmUser(UUID uuid) { return cosmUsers.get(uuid); }
 
-    /**
-     * Creating and storing cosmetic object
-     * @param uuid players uuid
-     */
-    public void addCosmUser(UUID uuid) { this.cosmUsers.put(uuid, new CosmUser(uuid)); }
+    public void addCosmUser(UUID uuid) { cosmUsers.put(uuid, new CosmUser(uuid)); }
+    public void addCosmUser(CosmUser cosmUser) {
+        cosmUsers.put(cosmUser.getUuid(), cosmUser);
+    }
 
-    /**
-     * Removing cosmetic storage for player
-     * @param uuid players uuid
-     */
-    public void removeCosmUser(UUID uuid) { this.cosmUsers.remove(uuid); }
+    public void removeCosmUser(UUID uuid) { cosmUsers.remove(uuid); }
 }

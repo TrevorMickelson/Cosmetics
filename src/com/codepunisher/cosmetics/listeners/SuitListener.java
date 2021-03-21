@@ -1,49 +1,43 @@
 package com.codepunisher.cosmetics.listeners;
 
 import com.codepunisher.cosmetics.CosmMain;
-import com.codepunisher.mcaimcore.events.ArmorRemoveEvent;
-import com.codepunisher.cosmetics.CosmUser;
+import com.codepunisher.cosmetics.user.CosmUser;
+import com.mcaim.core.events.ArmorRemoveEvent;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class SuitListener
-{
-    // Instance of plugin
+public class SuitListener implements Listener {
     private final CosmMain plugin = CosmMain.getInstance();
 
-    /**
-     * Stops players from removing suits
-     * @param event armor remove event
-     */
+    @EventHandler
     private void onArmorRemove(ArmorRemoveEvent event) {
         Player player = event.getPlayer();
         CosmUser cosmUser = plugin.getCosmManager().getCosmUser(player.getUniqueId());
 
-        if (cosmUser.isWearingSuit())
+        if (cosmUser.getSuitUsage().isWearingSuit())
             event.setCancelled(true);
     }
 
-    /**
-     * Stop armor from taking damage
-     * @param event item damage event
-     */
-    private void onArmorDamage(PlayerItemDamageEvent event) {
+    @EventHandler
+    public void onArmorDamage(PlayerItemDamageEvent event) {
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
         CosmUser cosmUser = plugin.getCosmManager().getCosmUser(player.getUniqueId());
 
-        if (cosmUser.isWearingSuit()) {
-            if (item.getType().toString().toLowerCase().contains("helmet") ||
-                item.getType().toString().toLowerCase().contains("chestplate") ||
-                item.getType().toString().toLowerCase().contains("leggings") ||
-                item.getType().toString().toLowerCase().contains("boots")) {
+        if (cosmUser.getSuitUsage().isWearingSuit()) {
+            if (isSuitArmor(item))
                 event.setCancelled(true);
-            }
         }
     }
 
-    // --- HANDLING EVENTS --- //
-    public void handleArmorRemove(ArmorRemoveEvent event) { onArmorRemove(event); }
-    public void handleItemDamage(PlayerItemDamageEvent event) { onArmorDamage(event); }
+    private boolean isSuitArmor(ItemStack item) {
+        Material type = item.getType();
+
+        return type == Material.LEATHER_HELMET || type == Material.LEATHER_CHESTPLATE ||
+               type == Material.LEATHER_LEGGINGS || type == Material.LEATHER_BOOTS;
+    }
 }

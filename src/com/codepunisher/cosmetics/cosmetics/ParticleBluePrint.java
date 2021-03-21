@@ -1,10 +1,8 @@
 package com.codepunisher.cosmetics.cosmetics;
 
-public class ParticleBluePrints
-{
+public class ParticleBluePrint {
     // Space Wing BluePrint
-    static String[][] SpaceWings =
-    {
+    static String[][] SpaceWings = {
         {" -, -, -, -, -, -, -, +, -, -, -, +, -, -, -, -, -, -, -"},
         {" -, -, -, -, -, -, -, X, -, X, -, X, -, -, -, -, -, -, -"},
         {" -, -, -, -, -, -, X, X, X, X, X, X, X, -, -, -, -, -, -"},
@@ -16,8 +14,7 @@ public class ParticleBluePrints
     };
 
     // Bat Wing BluePrint
-    static String[][] BatWings =
-    {
+    static String[][] BatWings = {
         {"-, -, -, -, X, X, -, -, X, -, -, -, -, -, X, -, -, X, X, -, -, -, -, -"},
         {"-, -, -, X, X, -, -, -, X, -, -, -, -, -, X, -, -, -, X, X, -, -, -, -"},
         {"-, -, X, X, -, -, -, -, X, -, -, -, -, -, X, -, -, -, -, X, X, -, -, -"},
@@ -32,8 +29,7 @@ public class ParticleBluePrints
 
 
     // Abyse Wing BluePrint
-    static String[][] AbyseWing =
-    {
+    static String[][] AbyseWing = {
         {" -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -"},
         {" -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -"},
         {" -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -"},
@@ -53,8 +49,7 @@ public class ParticleBluePrints
     };
 
     // Candy cane BluePrint
-    static String[][] CandyCane =
-    {
+    static String[][] CandyCane = {
         {" -, -, X, +, -, -, -, -, -, -, -, +, X, -, -"},
         {" -, +, -, -, X, -, -, -, -, -, X, -, -, +, -"},
         {" -, X, -, -, -, +, -, -, -, +, -, -, -, X, -"},
@@ -66,8 +61,7 @@ public class ParticleBluePrints
     };
 
     // Baby bottle blueprint
-    static String[][] BabyBottle =
-    {
+    static String[][] BabyBottle = {
         {" -, -, -, -, -, -, -, -, -, -, -, +, -"},
         {" -, -, -, -, -, -, -, -, +, +, +, -, -"},
         {" -, -, -, -, -, -, -, X, X, +, +, -, -"},
@@ -81,8 +75,7 @@ public class ParticleBluePrints
     };
 
     // Rain Cloud blueprint
-    static String[][] RAIN_CLOUD =
-    {
+    static String[][] RAIN_CLOUD = {
         {" -, -, +, +, +, +, +, +, -, -"},
         {" -, -, +, +, +, +, +, +, -, -"},
         {" -, +, +, +, +, +, +, +, +, -"},
@@ -91,8 +84,7 @@ public class ParticleBluePrints
     };
 
     // Dark Katana blueprint
-    static String[][] DarkKatana =
-    {
+    static String[][] DarkKatana = {
         {" -, -, -, -, -, -, -, -, -, -, +, -"},
         {" -, -, -, -, -, -, -, -, -, +, -, -"},
         {" -, -, -, -, -, -, -, -, +, -, -, -"},
@@ -106,8 +98,7 @@ public class ParticleBluePrints
     };
 
     // Basic Great Sword blueprint
-    static String[][] BasicGreatSword =
-    {
+    static String[][] BasicGreatSword = {
         {" -, -, -, -, -, -, -, -, -, -, -, X, -"},
         {" -, -, -, -, -, -, *, -, -, -, +, -, -"},
         {" -, -, -, -, -, -, -, +, -, +, -, -, -"},
@@ -122,8 +113,7 @@ public class ParticleBluePrints
     };
 
     // Sythe blueprint
-    static String[][] Sythe =
-    {
+    static String[][] Sythe = {
         {" -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -"},
         {" -, -, -, -, -, -, -, -, -, -, -, -, -, -, +, +, *, -, -, -, -, -, -, -"},
         {" -, -, -, -, -, -, -, -, -, -, -, -, -, +, *, *, *, *, *, -, -, -, -, -"},
@@ -148,8 +138,7 @@ public class ParticleBluePrints
     };
 
     // Flame wings blueprint
-    static String[][] FlameWings =
-    {
+    static String[][] FlameWings = {
         {" X, -, -, -, -, -, -, -, -, -, -, -, X"},
         {" X, X, -, -, -, -, -, -, -, -, -, X, X"},
         {" X, X, X, -, -, -, -, -, -, -, X, X, X"},
@@ -164,8 +153,7 @@ public class ParticleBluePrints
     };
 
     // Ice wings blueprint
-    static String[][] iceWings =
-    {
+    static String[][] iceWings = {
         {" X, X, -, -, -, -, -, -, -, -, -, X, X"},
         {" X, X, X, -, -, -, -, -, -, -, X, X, X"},
         {" +, X, X, X, -, -, -, -, -, X, X, X, +"},
@@ -179,8 +167,7 @@ public class ParticleBluePrints
     };
 
     // Light Wing BluePrint
-    static String[][] lightWings =
-    {
+    static String[][] lightWings = {
         {" -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -"},
         {" -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -"},
         {" -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -"},
@@ -203,8 +190,7 @@ public class ParticleBluePrints
     };
 
     // Heart BluePrint
-    static String[][] Heart =
-    {
+    static String[][] Heart = {
         {" -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, X, X, -, -, -, X, X, -, -, -, -"},
         {" -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, X, +, +, X, -, X, +, +, X, -, -, -"},
         {" -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, X, +, +, +, +, X, +, +, +, +, X, -, -"},
@@ -232,8 +218,7 @@ public class ParticleBluePrints
     };
 
     // Jet Pack
-    static String[][] astronaut  =
-    {
+    static String[][] astronaut  = {
         {" -, -, -, -, -, -, +, -, -, -, -, -, -"},
         {" -, X, -, -, -, +, +, +, -, -, -, X, -"},
         {" X, X, -, -, +, +, X, +, +, -, -, X, X"},
@@ -250,8 +235,7 @@ public class ParticleBluePrints
     };
 
     // Officer Bat
-    static String[][] OfficerBat =
-    {
+    static String[][] OfficerBat = {
         {" -, -, -, -, -, -, -, -, -, -, X, -"},
         {" -, -, -, -, -, X, -, -, -, X, -, -"},
         {" -, -, -, -, -, -, X, -, X, -, -, -"},

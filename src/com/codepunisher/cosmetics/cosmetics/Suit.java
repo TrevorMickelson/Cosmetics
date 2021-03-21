@@ -1,13 +1,10 @@
 package com.codepunisher.cosmetics.cosmetics;
 
 import me.arcaniax.hdb.api.HeadDatabaseAPI;
-import net.minecraft.server.v1_16_R2.NBTTagCompound;
-import net.minecraft.server.v1_16_R2.NBTTagList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_16_R2.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -18,10 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public enum Suits
-{
-    //---( GOLD TIER )---
-
+public enum Suit {
     MOON("&bMoon", new String[] {"Shrouded Boots","Shrouded Leggings","Shrouded Breastplate","Shrouded Helmet"},
         new Color[] { Color.fromRGB(255, 255, 255), Color.fromRGB(255, 255, 255), Color.fromRGB(255, 255, 255) }, ChatColor.AQUA , "30494",
         Collections.singletonList("Corrupt angel from the Suspended Depths"), true),
@@ -162,18 +156,15 @@ public enum Suits
         new Color[] { Color.fromRGB(28, 26, 41), Color.fromRGB(28, 26, 41), Color.fromRGB(28, 26, 41) }, ChatColor.DARK_AQUA, "23420",
         Collections.singletonList("A Treasure From Interstellar Space!"), true);
 
-    private String name;
+    private final String name;
+    private final String[] displayName;
+    private final Color[] armorColor;
+    private final ChatColor tierColor;
+    private final String headId;
+    private final List<String> lore;
+    private final boolean isGlowing;
 
-    private String[] displayName;
-    private Color[] armorColor;
-    private ChatColor tierColor;
-    private String headId;
-    private List<String> lore;
-    private boolean isGlowing;
-
-    // SuitType Constructor
-    Suits(String name, String[] displayName, Color[] armorColor, ChatColor tierColor, String headId, List<String> lore, boolean isGlowing)
-    {
+    Suit(String name, String[] displayName, Color[] armorColor, ChatColor tierColor, String headId, List<String> lore, boolean isGlowing) {
         this.name = name;
         this.displayName = displayName;
         this.armorColor = armorColor;
@@ -183,28 +174,24 @@ public enum Suits
         this.isGlowing = isGlowing;
     }
 
-    /** Getters */
     public String getName() { return this.name; }
     public ItemStack[] getArmour() {
-        try
-        {
-            ItemStack[] itemStacks = new ItemStack[]
-            {
-                removeAttributes(new ItemStack(Material.LEATHER_BOOTS, 1)),
-                removeAttributes(new ItemStack(Material.LEATHER_LEGGINGS, 1)),
-                removeAttributes(new ItemStack(Material.LEATHER_CHESTPLATE, 1)),
-                CustomHeads(displayName[3], tierColor, lore, headId)
+        try {
+            // Armor item stacks
+            ItemStack[] itemStacks = new ItemStack[] {
+                new ItemStack(Material.LEATHER_BOOTS),
+                new ItemStack(Material.LEATHER_LEGGINGS),
+                new ItemStack(Material.LEATHER_CHESTPLATE),
+                customHead(displayName[3], tierColor, lore, headId)
             };
 
             // For each armor piece in base armor items
-            for(int i = 0; i < itemStacks.length - 1; i++)
-            {
+            for(int i = 0; i < itemStacks.length - 1; i++) {
                 // Create leather item meta and set desired values
                 LeatherArmorMeta meta = (LeatherArmorMeta) itemStacks[i].getItemMeta();
 
                 // Check that meta is not null
-                if(!Objects.isNull(meta))
-                {
+                if(!Objects.isNull(meta)) {
                     // Set flags for armor
                     meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON);
 
@@ -234,8 +221,7 @@ public enum Suits
             // Return items as Item Stack Array
             return itemStacks;
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -243,73 +229,29 @@ public enum Suits
     public String getHeadId() { return headId; }
     public String getPermission() { return "cosmetics.suit." + name().toLowerCase(); }
 
-    /** Helper methods */
     // Get custom head from heads database
-    private ItemStack CustomHeads(String tag, ChatColor tierColor, List<String> lore, String id) {
-        try
-        {
-            // Create new head api class object
+    private ItemStack customHead(String tag, ChatColor tierColor, List<String> lore, String id) {
+        try {
             HeadDatabaseAPI api = new HeadDatabaseAPI();
 
             // Create item-stack to hold head from database
             ItemStack item = api.getItemHead(id);
-
-            // Set head item meta
             ItemMeta meta = item.getItemMeta();
 
-            assert meta != null;  // Check that meta is not null
-            meta.isUnbreakable();
-            meta.setDisplayName(tierColor + tag);
+            if (meta != null) {
+                meta.isUnbreakable();
+                meta.setDisplayName(tierColor + tag);
+                meta.setLore(lore);
+            }
 
-            meta.setLore(lore);
-
-            // Set item meta
             item.setItemMeta(meta);
-
-            // Return head item
             return item;
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             Bukkit.getServer().getConsoleSender().sendMessage("§cError getting custom head from database");
             return null;
         }
     }
 
-    // Remove item attributes for suits
-    private ItemStack removeAttributes(ItemStack item) {
-        try
-        {
-            // Get nms item stack
-            net.minecraft.server.v1_16_R2.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
-            NBTTagCompound compound = nmsStack.getOrCreateTag();
-
-            // Create nbt tag list
-            NBTTagList atrModifiers = new NBTTagList();
-
-            // Create armor compound
-            NBTTagCompound armor  = new NBTTagCompound();
-            armor.setString("AttributeName", "generic.armor");
-            armor.setString("Name", "generic.armor");
-            armor.setString("Slot", "chest");
-            armor.setInt("Operation", 0);
-            armor.setDouble("Amount", 10);
-            armor.setInt("UUIDMost", 0);
-            armor.setInt("UUIDLeast", 0);
-
-            // Store armor compound in atr modifiers
-            atrModifiers.add(armor);
-
-            // Set attribute modifiers
-            compound.set("AttributeModifiers", atrModifiers);
-            nmsStack.setTag(compound);
-
-            // Return nmsStack as bukkit copy
-            return CraftItemStack.asBukkitCopy(nmsStack);
-        }
-        catch (Throwable t) {
-            t.printStackTrace();
-        }
-        return item;
-    }
+    public ItemStack getCustomHead() { return customHead(displayName[3], tierColor, lore, headId); }
 }

@@ -1,102 +1,57 @@
 package com.codepunisher.cosmetics.listeners;
 
 import com.codepunisher.cosmetics.CosmMain;
-import com.codepunisher.cosmetics.CosmUser;
-import com.codepunisher.mcaimcore.configuration.ConfigAPI;
-import org.bukkit.entity.Player;
+import com.codepunisher.cosmetics.user.CosmUser;
+import com.codepunisher.cosmetics.util.CosmDataBase;
+import com.codepunisher.cosmetics.util.CosmManager;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
-public class JoinLeave
-{
-    // Instance of main class
-    private final CosmMain plugin = CosmMain.getInstance();
+import java.util.UUID;
+
+public class JoinLeave implements Listener {
+    private final CosmManager manager = CosmMain.getInstance().getCosmManager();
 
     /**
-     * The purpose of this event is to re-apply
-     * cosmetics (if need to)
-     *
-     * Also making sure the user has a cosmetic
-     * user object stored
-     *
-     * Also gets cosmetic user object from file
-     * and applies it (if need tO)
-     *
-     * I'm aware that this join event is sort of
-     * a must convoluted fuck fest but honestly
-     * I'm not sure I care anymore... this plugin
-     * has taken SO MUCH FUCKING TIME
-     *
-     * Running async because it's a bit intensive
+     * Loads data from data base
+     * and stores user
      */
-    private void onJoin(PlayerJoinEvent event) {
-        new BukkitRunnable()
-        {
-            @Override
-            public void run()
-            {
-                Player player = event.getPlayer();
-
-                CosmUser cosmUser = plugin.getCosmDataManager().getCosmUserFromFile(ConfigAPI.getDataFile(plugin, "playerdata.yml"), player.getUniqueId());
-
-                if (cosmUser != null && plugin.getCosmManager().getCosmUser(player.getUniqueId()) == null)
-                {
-                    plugin.getCosmManager().cosmUsers.put(player.getUniqueId(), cosmUser);
-
-                    if (cosmUser.isActiveTrailParticle())
-                        cosmUser.trailParticleTimer();
-
-                    if (cosmUser.isActiveBackParticle())
-                        cosmUser.backParticleTimer();
-
-                    if (cosmUser.isWearingSuit())
-                        cosmUser.equipSuit();
-
-                    if (cosmUser.isActivePet())
-                        cosmUser.petTimer();
-                }
-                else
-                {
-                    CosmUser onlineCosmUser = plugin.getCosmManager().getCosmUser(player.getUniqueId());
-
-                    if (onlineCosmUser != null) {
-                        if (onlineCosmUser.isActiveTrailParticle())
-                            onlineCosmUser.trailParticleTimer();
-
-                        if (onlineCosmUser.isActiveBackParticle())
-                            onlineCosmUser.backParticleTimer();
-
-                        if (onlineCosmUser.isWearingSuit())
-                            onlineCosmUser.equipSuit();
-
-                        if (onlineCosmUser.isActivePet())
-                            onlineCosmUser.petTimer();
-                    } else {
-                        plugin.getCosmManager().addCosmUser(player.getUniqueId());
-                    }
-                }
-            }
-
-        }.runTaskAsynchronously(plugin);
+    @EventHandler (priority = EventPriority.MONITOR)
+    public void onPreJoin(AsyncPlayerPreLoginEvent event) {
+        UUID uuid = event.getUniqueId();
+        CosmUser cosmUser = new CosmUser(uuid);
+        CosmDataBase.storeCosmeticInfo(cosmUser);
+        manager.addCosmUser(cosmUser);
     }
 
     /**
-     * Removes cosmetics
-     * @param event quit event
+     * Toggles cosmetics on
      */
-    private void onQuit(PlayerQuitEvent event) {
-        Player player = event.getPlayer();
-        CosmUser cosmUser = plugin.getCosmManager().getCosmUser(player.getUniqueId());
+    @EventHandler (priority = EventPriority.MONITOR)
+    public void onJoin(PlayerJoinEvent event) {
+        UUID uuid = event.getPlayer().getUniqueId();
+        CosmUser cosmUser = manager.getCosmUser(uuid);
 
-        if (cosmUser.isWearingSuit())
-            cosmUser.removeSuit();
+        if (cosmUser.getTrailUsage().isActive())
+            cosmUser.getTrailUsage().trailParticleTimer();
 
-        if (cosmUser.isActivePet())
-            cosmUser.getEntity().remove();
+        if (cosmUser.getSuitUsage().isWearingSuit())
+            cosmUser.getSuitUsage().equipSuit();
+
+        if (cosmUser.getBackParticleUsage().isActive())
+            cosmUser.getBackParticleUsage().backParticleTimer();
     }
 
-    // --- HANDLING EVENTS --- //
-    public void handleJoinEvent(PlayerJoinEvent event) { onJoin(event); }
-    public void handleQuitEvent(PlayerQuitEvent event) { onQuit(event); }
+    @EventHandler (priority = EventPriority.MONITOR)
+    public void onLeave(PlayerQuitEvent event) {
+        UUID uuid = event.getPlayer().getUniqueId();
+        CosmUser cosmUser = manager.getCosmUser(uuid);
+
+        // Storing information to data base
+        CosmDataBase.updateCosmUser(uuid, cosmUser);
+    }
 }

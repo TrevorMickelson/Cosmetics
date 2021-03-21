@@ -1,25 +1,28 @@
 package com.codepunisher.cosmetics.listeners;
 
 import com.codepunisher.cosmetics.CosmMain;
-import com.codepunisher.mcaimcore.events.PlayerStartMovingEvent;
-import com.codepunisher.mcaimcore.events.PlayerStopMovingEvent;
-import org.bukkit.entity.Player;
+import com.codepunisher.cosmetics.util.CosmManager;
+import com.mcaim.core.events.PlayerStartMovingEvent;
+import com.mcaim.core.events.PlayerStopMovingEvent;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 
-public class PlayerMove
-{
-    // Instance of main class
-    private final CosmMain plugin = CosmMain.getInstance();
+import java.util.UUID;
 
-    private void onStartMove(PlayerStartMovingEvent event) {
-        Player player = event.getPlayer();
-        plugin.getCosmManager().getCosmUser(player.getUniqueId()).setMoving(true);
+public class PlayerMove implements Listener {
+    private final CosmManager manager = CosmMain.getInstance().getCosmManager();
+
+    // Sets moving to true
+    @EventHandler
+    public void onStartMove(PlayerStartMovingEvent event) {
+        UUID uuid = event.getPlayer().getUniqueId();
+        manager.getCosmUser(uuid).getBackParticleUsage().setMoving(true);
     }
 
+    // Sets move to false
+    @EventHandler
     private void onStopMove(PlayerStopMovingEvent event) {
-        Player player = event.getPlayer();
-        plugin.getCosmManager().getCosmUser(player.getUniqueId()).setMoving(false);
+        UUID uuid = event.getPlayer().getUniqueId();
+        manager.getCosmUser(uuid).getBackParticleUsage().setMoving(false);
     }
-
-    public void handleStartEvent(PlayerStartMovingEvent event) { onStartMove(event); }
-    public void handleStopEvent(PlayerStopMovingEvent event) { onStopMove(event); }
 }
